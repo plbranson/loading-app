@@ -1,0 +1,158 @@
+/*
+ *  Copyright 2023 Patrick L. Branson
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/** First Spinner */
+
+.spinner-1 {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  font-size: 2rem;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  animation: text-color 2s ease-in-out infinite alternate;
+}
+
+.spinner-sector {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  border: 15px solid transparent;
+  animation: rotate var(--duration) var(--timing) infinite;
+}
+
+.spinner-sector-red {
+  --duration: 1s;
+  --timing: ease-in-out;
+  border-top-color: red;
+}
+
+.spinner-sector-blue {
+  --duration: 1s;
+  --timing: ease-in;
+  border-left-color: steelblue;
+}
+
+.spinner-sector-yellow {
+  --duration: 1.25s;
+  --timing: ease-out;
+  border-right-color: yellowgreen;
+}
+
+.spinner-sector-orange {
+  --duration: 1.5s;
+  --timing: ease-out;
+  border-bottom-color: orange;
+}
+
+.spinner-sector-green {
+  --duration: 1.75s;
+  --timing: ease-in-out;
+  border-top-color: lawngreen;
+}
+
+.spinner-sector-purple {
+  --duration: 2s;
+  --timing: ease-out;
+  border-left-color: rebeccapurple;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes text-color {
+  0% {
+    color: rgba(0, 0, 0, 1);
+  }
+
+  50% {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  100% {
+    color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/** Padding buffer */
+.padding {
+  padding: 20px;
+}
+
+/** Second Spinner */
+
+/*
+ * Note: Spinner 2 can only have two colors because of the "before" and "after." Most of the complexities go into
+ * the combination section of "spinner-2::before, spinner-2::after" section. It makes the css more complicated but
+ * the HTML easier to read. Also, the combined section requires a "context" attribute with an empty string.
+ */
+
+.spinner-2 {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  font-size: 2rem;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  /* Recycles the text-color keyframe from spinner-1 */
+  animation: text-color 2s ease-in-out infinite alternate;
+}
+
+.spinner-2::before,
+.spinner-2::after {
+  width: 100%;
+  height: 100%;
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  border: 15px solid transparent;
+  /* Recycles the rotate keyframe from spinner-1 */
+  animation: rotate var(--duration) var(--timing) infinite;
+}
+
+.spinner-2::before {
+  --duration: 1s;
+  --timing: ease-in-out;
+  border-top-color: red;
+}
+
+.spinner-2::after {
+  --duration: 1.25s;
+  --timing: ease-out;
+  border-right-color: yellowgreen;
+}
